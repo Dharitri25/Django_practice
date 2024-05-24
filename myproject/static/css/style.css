@@ -120,3 +120,19 @@ a:hover {
 .logout-button:hover {
   opacity: 0.85;
 }
+
+.post {
+  padding: 0.2em 0.3em;
+  background: #3030358c;
+  border-radius: 0.4em 0.08em;
+  width: 70vw;
+}
+
+.post-action {
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-post {
+  font-size: 0.5em;
+}
