@@ -2,14 +2,51 @@
 {% block title %}User Login{% endblock %} 
 {%block content %}
 <section>
-  <h1>Login Here</h1>
-  <form class="form-with-validation" action="/user/login/" method="post">
-    {% csrf_token %}
-    {{form}}
-    {% if request.GET.next %}
-      <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+  <form
+    class="form-with-validation"
+    style="align-items: inherit"
+    action="/user/login/"
+    method="post"
+  >
+    <h1>Login Here</h1>
+    <h4>
+      new user? <a href="{% url 'user:register' %}">go for registration</a>
+    </h4>
+    <hr/>
+    {% csrf_token %} {{form}} {% if request.GET.next %}
+    <input
+      class="row g-3 align-items-center"
+      type="hidden"
+      name="next"
+      value="{{ request.GET.next }}"
+    />
     {% endif %}
-    <button class="form-submit">Submit</button>
+    <button
+      style="margin: 10px 80%"
+      class="btn btn-primary form-submit"
+      id="submit"
+      type="submit"
+    >
+      Submit
+    </button>
   </form>
 </section>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const inputFields = document.querySelectorAll("input");
+    const submitButton = document.getElementById("submit");
+    function checkInputs() {
+      const isEmptyInput = Array.from(inputFields).some(
+        (i) => i.value.trim() === ""
+      );
+      submitButton.disabled = isEmptyInput;
+    }
+
+    inputFields.forEach((input) => {
+      input.addEventListener("input", checkInputs);
+    });
+
+    checkInputs();
+  });
+</script>
 {% endblock content %}

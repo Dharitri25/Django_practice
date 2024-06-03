@@ -11,4 +11,4 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
 
     def __str__(self) -> str:
-        return self.title
+        return self.title 

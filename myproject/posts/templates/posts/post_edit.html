@@ -1,0 +1,110 @@
+{% extends "layout.html" %} 
+{% block title %}Edit Post{% endblock %} 
+{% block content %}
+<section>
+  <form
+    class="form-with-validation"
+    action="{% url 'post:post_edit' id=post.id %}"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    <h1>Edit Post</h1>
+    {% csrf_token %}
+    <div class="col-md-12 form-group row">
+      <label class="col-sm-2 col-form-label" for="id_title">Title</label>
+      <input
+        type="text"
+        value="{{ post.title }}"
+        class="form-control col-sm-10"
+        placeholder="Enter title"
+        name="title"
+        id="id_title"
+      />
+    </div>
+    <div class="col-md-12 form-group row">
+      <label class="col-sm-2 col-form-label" for="id_body">Body</label>
+      <textarea
+        class="form-control edit-textarea col-sm-10"
+        placeholder="Enter body"
+        name="body"
+        id="id_body"
+      >
+{{ post.body }}</textarea
+      >
+    </div>
+    <div class="col-md-12 form-group row">
+      <label class="col-sm-2 col-form-label" for="id_slug">Slug</label>
+      <input
+        type="text"
+        value="{{ post.slug }}"
+        class="form-control col-sm-10"
+        placeholder="Enter slug"
+        name="slug"
+        id="id_slug"
+      />
+    </div>
+    <div style="flex-direction: column">
+      <div class="col-md-11 form-group row">
+        <label class="col-sm-2 col-form-label" for="id_banner">Banner</label>
+        <input
+          type="file"
+          name="banner"
+          id="id_banner"
+          class="form-control"
+          style="width: 568px"
+        />
+      </div>
+      {% if post.banner %}
+      <img
+        id="banner-preview"
+        src="{{ post.banner.url }}"
+        alt="Post Banner"
+        class="img-fluid udpate-post-img col-sm-8"
+        style="margin-left: 6em"
+      />
+      {% endif %}
+    </div>
+    <input
+      class="row g-3 align-items-center"
+      type="hidden"
+      name="next"
+      value="{{ request.GET.next }}"
+    />
+    <div style="margin: 10px 70%">
+      <button class="btn btn-primary form-submit" id="submit" type="submit">
+        Update Post
+      </button>
+      <button class="btn btn-success form-submit">
+        <a style="color: white" href="{% url 'post:page' slug=post.slug %}">
+          Back
+        </a>
+      </button>
+    </div>
+  </form>
+</section>
+<script>
+  const bannerInput = document.getElementById("id_banner");
+  const bannerPreview = document.getElementById("banner-preview");
+  const inputField = document.getElementById("id_title");
+  const submitButton = document.getElementById("submit");
+
+  bannerInput.addEventListener("change", function () {
+    if (bannerInput.files && bannerInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        bannerPreview.src = e.target.result;
+      };
+      reader.readAsDataURL(bannerInput.files[0]);
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    function checkInputs() {
+      const isEmptyInput = inputField.value.trim() === "" ? true : false;
+      submitButton.disabled = isEmptyInput;
+    }
+    inputField.addEventListener("input", checkInputs);
+    checkInputs();
+  });
+</script>
+{% endblock %}

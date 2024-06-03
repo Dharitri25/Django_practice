@@ -1,10 +1,24 @@
 {% extends "layout.html" %} 
 {% block title %}{{ post.title }}{% endblock %}
-{% block content %}
-<section>
+{%block content %}
+<button class="btn btn-success back-button">
+  <a style='color:white' href="{% url 'post:list' %}">
+    Back
+  </a>
+</button>
+<section class="post-page">
+    <h1>{{ post.title }}</h1>
+    <a style='position: absolute;' href="{% url 'post:post_edit' id=post.id%}">
+      <span
+        class="delete-post post-page-edit"
+        role="img"
+        aria-label="Edit Post"
+        title="Edit Post"
+        >📝</span
+      >
+    </a>
   <img class="banner" src="{{post.banner.url}}" alt="{{ post.title }}" />
-  <h1>{{ post.title }}</h1>
   <p>{{ post.date }} by {{post.author}}</p>
-  <p>{{ post.body }}</p>
+  <span>{{ post.body }}</span>
 </section>
 {% endblock content %}

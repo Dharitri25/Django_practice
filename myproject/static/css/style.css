@@ -9,8 +9,6 @@ body {
   background-color: black;
   color: whitesmoke;
   font-size: 3rem;
-  /* display: flex;
-  flex-flow: column; */
 }
 
 nav {
@@ -21,16 +19,7 @@ nav {
 }
 
 main {
-  /* flex-grow: 1;
-  display: grid;
-  place-content: center; */
   padding: 1rem;
-}
-
-section {
-  display: flex;
-  flex-flow: column;
-  gap: 1rem;
 }
 
 h1,
@@ -38,23 +27,17 @@ h2 {
   font-size: 2.5rem;
 }
 
-/* h1,
-p {
-  text-align: center;
-} */
-
 p {
   font-size: 1rem;
   width: 50vw;
 }
-
 a {
   text-decoration: none;
   color: #81dbb8;
 }
-
 a:hover {
   opacity: 0.85;
+  color: rgb(216, 250, 209);
 }
 
 .banner {
@@ -70,17 +53,19 @@ a:hover {
   display: flex;
   flex-flow: column;
   gap: 1rem;
+  align-items: flex-start;
+  margin: 0 auto;
 }
 
 .form-with-validation div {
   display: flex;
-  flex-flow: column;
+  flex-flow: row;
   gap: 0.5rem;
 }
 
 .form-with-validation input {
   padding: 0.25rem;
-  max-width: 300px;
+  /* max-width: 600px; */
 }
 
 .form-submit {
@@ -126,6 +111,7 @@ a:hover {
   background: #3030358c;
   border-radius: 0.4em 0.08em;
   width: 70vw;
+  margin-bottom: 0.5em;
 }
 
 .post-action {
@@ -135,4 +121,83 @@ a:hover {
 
 .delete-post {
   font-size: 0.5em;
+}
+
+.edit-textarea {
+  min-height: calc(17em + 0.75rem + 2px) !important;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 1em;
+  margin-block: 1em;
+}
+
+.post-name-list {
+  list-style: square;
+  font-size: 0.5em;
+  cursor: pointer;
+  font-family: monospace;
+}
+.post-name-list a {
+  color: #fff;
+}
+.post-name-list:hover,
+.post-name-list a:hover {
+  color: #44b78b;
+}
+
+.footer {
+  background: #6dd1af75;
+  font-size: 0.3em;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  color: rgb(180, 180, 142);
+}
+
+.post-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #1212119e;
+  margin: 1em auto;
+  padding: 1em;
+}
+.post-page p {
+  margin-inline-start: 12rem;
+}
+.post-page span {
+  font-size: 0.6em;
+}
+
+.post-page-edit {
+  top: -2em;
+  right: -21.5em;
+  position: relative;
+}
+
+.udpate-post-img {
+  margin-left: 4em;
+  height: 15em;
+}
+
+.back-button {
+  position: fixed;
+  right: 1em;
+}
+
+.about-table {
+  font-size: 0.5em;
+  width: 50%;
+  text-align: center;
+}
+.post-header-search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

@@ -2,10 +2,39 @@
 {% block title %}Register User{% endblock %} 
 {%block content %}
 <section>
-  <h1>New user ?</h1>
-  <form class="form-with-validation" action="/user/register/" method="post">
+  <form
+    style="align-items: inherit"
+    class="form-with-validation"
+    action="/user/register/"
+    method="post"
+  >
+    <h1>New user ?</h1>
     {% csrf_token %} {{form}}
-    <button class='form-submit'>Submit</button>
+    <button
+      style="margin: 10px 80%"
+      class="btn btn-primary form-submit"
+      id="submit"
+    >
+      Submit
+    </button>
   </form>
 </section>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const inputFields = document.querySelectorAll("input");
+    const submitButton = document.getElementById("submit");
+    function checkInputs() {
+      const isEmptyInput = Array.from(inputFields).some(
+        (i) => i.value.trim() === ""
+      );
+      submitButton.disabled = isEmptyInput;
+    }
+
+    inputFields.forEach((input) => {
+      input.addEventListener("input", checkInputs);
+    });
+
+    checkInputs();
+  });
+</script>
 {% endblock content %}

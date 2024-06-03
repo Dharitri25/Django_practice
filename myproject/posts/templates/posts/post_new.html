@@ -2,15 +2,41 @@
 {% block title %}Post Here{% endblock %} 
 {%block content %}
 <section>
-  <h1>New Post</h1>
   <form
     class="form-with-validation"
+    style="align-items: inherit"
     action="{% url 'post:post_new' %}"
     method="post"
     enctype="multipart/form-data"
   >
+    <h1>New Post</h1>
+    <hr/>
     {% csrf_token %} {{ form }}
-    <button class="form-submit">Add Post</button>
+    <button
+      style="margin: 10px 80%"
+      class="btn btn-primary form-submit"
+      id="submit"
+    >
+      Add Post
+    </button>
   </form>
 </section>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const inputFields = document.querySelectorAll("input, textarea");
+    const submitButton = document.getElementById("submit");
+    function checkInputs() {
+      const isEmptyInput = Array.from(inputFields).some(
+        (i) => i.value.trim() === ""
+      );
+      submitButton.disabled = isEmptyInput;
+    }
+
+    inputFields.forEach((input) => {
+      input.addEventListener("input", checkInputs);
+    });
+
+    checkInputs();
+  });
+</script>
 {% endblock content %}

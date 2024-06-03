@@ -1,6 +1,81 @@
 {% extends "layout.html" %} 
-{% block title %}About{% endblock %}
-{% block content %}
-<h1>About</h1>
+{% block title %}About{% endblock %} 
+{% block content %} 
+{% include "common_notify.html" %}
+<h1>About Page</h1>
 <p>You can go back to <a href="/">home</a></p>
+<button class="btn btn-success">
+  <a style="color: white" href="{% url 'post:postnames-list' %}">
+    <span aria-label="Post Title" title="Post Title">View Posts List</span>
+  </a>
+</button>
+<button class="btn btn-success">
+  <a style="color: white" href="{% url 'post:post_user_list' %}">
+    <span aria-label="Post Title" title="Post Title">User-Post List</span>
+  </a>
+</button>
+{% if posts %}
+<h3>List of posts:</h3>
+{% block post_list %}
+<ul>
+  {% for post in posts %}
+  <li class="post-name-list">
+    <a href="{% url 'post:post_page_by_title' title=post %}">{{post}}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %} {% elif user_posts %}
+<table class="table table-success table-striped about-table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">User</th>
+      <th scope="col">Total Posts</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in user_posts %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{user.user}}</td>
+      <td>{{user.totalPosts}}</td>
+      <td>
+        <button class="btn btn-success">
+          <a
+            style="color: white"
+            href="{% url 'post:posts_by_user' user=user.userId %}"
+            >watch</a
+          >
+        </button>
+        <button class="btn btn-success">
+          <a
+            style="color: white"
+            href="{% url 'post:posts_delete_by_user' user=user.userId %}"
+            >delete</a
+          >
+        </button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+<script>
+  // by classname with for loop
+  //var messages = document.getElementsByClassName('alert');
+  /*for (var i = 0; i < messages.length; i++) {
+    setTimeout(function(messageElement) {
+      messageElement.parentNode.removeChild(messageElement);
+    }, 1500, messages[i]);
+  }*/
+
+  //by getElementById
+  var message = document.getElementById('msg');
+  setTimeout(function() {
+    if (message) {
+        message.parentNode.removeChild(message);
+    }
+  }, 1500);
+</script>
 {% endblock %}
